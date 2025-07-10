@@ -9,8 +9,9 @@ export class AuthService {
  async validateUser(username: string, pass: string): Promise<any> {
   // 1. Simula una base de datos de usuarios con un array
   const users = [
-    { userId: 1, username: 'vip', password: 'password' },
-    { userId: 2, username: 'regular', password: 'password123' },
+    { userId: 1, username: 'vip', password: 'vip' },
+    { userId: 2, username: 'regular', password: 'regular' },    
+    { userId: 2, username: 'admin', password: 'admin' },
   ];
 
   // 2. Busca al usuario por su nombre de usuario

@@ -29,4 +29,10 @@ export class SongsController {
   async findByArtist(@Param('name') name: string): Promise<Song[]> {
     return this.songsService.findByArtist(name);
   }
+   @UseGuards(FeatureFlagGuard)
+   @CheckFeatureFlag('genero')
+   @Get('genre/:genreName') // Use a URL parameter for the genre name
+  async findByGenre(@Param('genreName') genreName: string): Promise<Song[]> {
+    return this.songsService.findByGenreInApp(genreName);
+  }
 }

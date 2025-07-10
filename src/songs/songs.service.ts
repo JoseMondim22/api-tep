@@ -20,4 +20,9 @@ export class SongsService {
   async findByArtist(artistName: string): Promise<Song[]> {
     return this.songModel.find({ artista: new RegExp(artistName, 'i') }).exec();
   }
+ 
+  async findByGenreInApp(genero: string): Promise<Song[]> {
+    const allSongs = await this.songModel.find().exec(); // Fetches ALL songs
+    return allSongs.filter(song => song.genero === genero); // Filters in Node.js memory
+  }
 }
