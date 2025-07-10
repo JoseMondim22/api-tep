@@ -11,6 +11,8 @@ import { AppFeatureFlags } from '../config/feature-flags.config'; // Importa la 
         // Determina el entorno actual
         const currentEnv = (process.env.NODE_ENV === 'production' ? 'prod' : 'dev');
         // Crea y retorna la instancia del servicio
+        console.log(`Initializing FeatureFlagService for environment: ${currentEnv}`);
+        console.log('Available feature flags:', AppFeatureFlags);
         return new FeatureFlagService(AppFeatureFlags, currentEnv);
       },
     },

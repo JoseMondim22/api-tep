@@ -4,7 +4,7 @@ import { FeatureFlagsConfiguration } from 'feature-flag-service-tep';
 export const AppFeatureFlags: FeatureFlagsConfiguration = {
   'trending-vip': {
     // Habilitado en todos los entornos
-    environments: ['dev', 'test', 'prod'],
+    environments: ['dev', 'test'],
     // Solo para el usuario con el ID 'vip'
     users: ['regular'],
   },
