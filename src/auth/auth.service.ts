@@ -6,15 +6,24 @@ export class AuthService {
   constructor(private jwtService: JwtService) {}
 
   // Simulación de validación de usuario
-  async validateUser(username: string, pass: string): Promise<any> {
-    // En un proyecto real, aquí consultarías la base de datos de usuarios.
-    if (username === 'testuser' && pass === 'password') {
-      // No devuelvas la contraseña en el objeto de resultado
-      const { pass, ...result } = { username: 'testuser', pass: 'password', userId: 1 };
-      return result;
-    }
-    return null;
+ async validateUser(username: string, pass: string): Promise<any> {
+  // 1. Simula una base de datos de usuarios con un array
+  const users = [
+    { userId: 1, username: 'vip', password: 'password' },
+    { userId: 2, username: 'regular', password: 'password123' },
+  ];
+
+  // 2. Busca al usuario por su nombre de usuario
+  const user = users.find(u => u.username === username);
+
+  // 3. Si el usuario existe y la contraseña es correcta, devuélvelo
+  if (user && user.password === pass) {
+    const { password, ...result } = user;
+    return result;
   }
+
+  return null;
+}
 
   async login(user: any) {
     const payload = { username: user.username, sub: user.userId };

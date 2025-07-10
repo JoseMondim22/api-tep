@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SongsModule } from './songs/songs.module';
 import { AuthModule } from './auth/auth.module';
+import { FeatureFlagsModule } from './feature-flags/feature-flag.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
     SongsModule,
     
     AuthModule,
+    FeatureFlagsModule, 
   ],
   controllers: [],
   providers: [],
