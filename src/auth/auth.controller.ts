@@ -1,6 +1,6 @@
 // src/auth/auth.controller.ts
 
-import { Controller, Post, Body, UnauthorizedException, Patch } from '@nestjs/common'; // Ya no se necesita UseGuards aquí
+import { Controller, Post, Body, UnauthorizedException, Patch, Get,  Param, } from '@nestjs/common'; // Ya no se necesita UseGuards aquí
 import { AuthService } from './auth.service';
 import { FeatureFlagService } from 'feature-flag-service-tep';
 // Ya no se necesita JwtAuthGuard aquí si no se usa en ninguna otra ruta de este controlador
@@ -34,6 +34,14 @@ export class AuthController {
     // Calling FeatureFlagService.getAllFeatureFlags to return the new state
     return this.featureFlagService.getAllFeatureFlags();
   }
+ @Patch('flags/update:flagName') 
+  async updateSpecificFeatureFlag(
+    @Param('flagName') flagName: string,
+    @Body() updatedFlagConfig: any, // Keeping DTO here for better typing/validation
+  ) {
+    this.featureFlagService.updateFeatureFlag(flagName, updatedFlagConfig);
+    return this.featureFlagService.getFlagDetails(flagName);
+  }
 
   // --- Endpoint 2: Cambiar el Entorno de Ejecución (Ahora Público) ---
   // Se eliminó @UseGuards(JwtAuthGuard) de aquí
@@ -42,5 +50,10 @@ export class AuthController {
     const newEnv = updateEnvironmentDto.environment;
     this.featureFlagService.setEnvironment(newEnv);
     return { message: `Environment successfully changed to ${newEnv}` };
+  }
+  @Get('Flags')
+  async getAllFeatureFlag() {
+      const flags = this.featureFlagService.getAllFeatureFlags();
+      return { flags };
   }
 }
